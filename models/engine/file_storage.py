@@ -12,9 +12,7 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
-    
     def all(self):
-        
         """ It returns the dictionary __objects """
 
         return (self.__objects)
