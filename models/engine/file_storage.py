@@ -35,7 +35,7 @@ class FileStorage:
                 tmp_dict[key] = value.to_dict()
             json.dump(tmp_dict, json_file)
 
-    def reaload(self):
+    def reload(self):
         """ deserializes the JSON file to __objects """
         try:
             with open(self.__file_path, 'r') as rt_json:
