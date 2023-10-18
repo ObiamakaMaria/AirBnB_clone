@@ -15,7 +15,6 @@ class BaseModel:
 
         """
         This function initializes a new BaseModel
-        
         Args:
                 *args (any): unused.
                 **kwargs (dict): Key/value pairs of attributes
