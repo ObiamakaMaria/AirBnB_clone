@@ -7,15 +7,15 @@ from uuid import uuid4
 from datetime import datetime
 
 class BaseModel:
-    
+
     """ The BaseModel for the AirBnb Project """
     
     def __init__(self, *args, **kwargs):
 
-        """ 
-            This function initializes a new BaseModel
-            
-            Args:
+    """
+        This function initializes a new BaseModel
+        
+        Args:
                 *args (any): unused.
                 **kwargs (dict): Key/value pairs of attributes
         """
@@ -30,7 +30,7 @@ class BaseModel:
                 else:
                     self.__dict__[key] = value
         else:
-           models.storage.new(self)
+            models.storage.new(self)
     def __str__(self):
         
         """ function that return a string version of the class """
