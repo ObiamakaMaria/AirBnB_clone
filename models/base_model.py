@@ -32,19 +32,16 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
-        
         """ function that return a string version of the class """
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
 
     def save(self):
-        
         """ update the public instance attribute updated_at """
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-    
         """
         Return the dictionary of the BaseModel instance.
         Includes the key/value pair __class__ representing
