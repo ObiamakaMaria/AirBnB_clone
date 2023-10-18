@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+""" Defines the HBnB console. """
+
 import cmd
 
 
@@ -6,6 +9,10 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
+    def emptyline(self):
+        """ Do nothing upon empty line and enter"""
+        pass
+     
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
