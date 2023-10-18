@@ -12,7 +12,7 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
-    
+
     def all(self):
         """ It returns the dictionary __objects """
 
@@ -34,7 +34,7 @@ class FileStorage:
             for key, value in self.__objects.items():
                 tmp_dict[key] = value.to_dict()
             json.dump(tmp_dict, json_file)
-    
+
     def reaload(self):
         """ deserializes the JSON file to __objects """
         try:
