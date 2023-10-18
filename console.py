@@ -1,5 +1,6 @@
 import cmd
 
+
 class HBNBCommand(cmd.Cmd):
     """The entry point of the command interpreter"""
 
@@ -13,6 +14,7 @@ class HBNBCommand(cmd.Cmd):
         """Exit on EOF"""
         print("")
         return True
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
