@@ -10,7 +10,6 @@ from datetime import datetime
 class BaseModel:
 
     """ The BaseModel for the AirBnb Project """
-    
     def __init__(self, *args, **kwargs):
 
         """
@@ -40,7 +39,7 @@ class BaseModel:
 
     def save(self):
         
-        """ update the public instance attribute updated_at to current datetime """
+        """ update the public instance attribute updated_at """
         self.updated_at = datetime.now()
         models.storage.save()
 
