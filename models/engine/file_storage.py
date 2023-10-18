@@ -34,3 +34,12 @@ class FileStorage:
             for key, value in self.__objects.items():
                 tmp_dict[key] = value.to_dict()
             json.dump(tmp_dict, json_file)
+    
+    def reaload(self):
+        """ deserializes the JSON file to __objects """
+        try:
+            with open(self.__file_path, 'r') as rt_json:
+                for obj in json.load(rt_json).values():
+                    self.new(eval(obj["__class__"])(**obj))
+        except FileNotFoundError:
+            return
