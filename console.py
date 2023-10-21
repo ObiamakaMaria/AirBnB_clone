@@ -3,6 +3,7 @@
 
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
@@ -40,10 +41,10 @@ class HBNBCommand(cmd.Cmd):
             tmp_arg = arg.split()
             for clss in  self.__classes:
                 if clss == tmp_arg[0]:
-                   new_class = eval('{}()'.format(tmp_arg[0]))
-                   print(new_class.id)
-                   storage.save()
-                   break;
+                    new_class = eval('{}()'.format(tmp_arg[0]))
+                    print(new_class.id)
+                    storage.save()
+                    break;
             else:
                 print ("** class doesn't exist **")
         else:
@@ -92,7 +93,26 @@ class HBNBCommand(cmd.Cmd):
                     print("** class doesn't exist **")
         else:
             print("** class name missing ***")
-
+    def do_all(self, arg):
+        """ Prints all string representation of all instacnes based """
+        t_all = storage.all()
+        array_t_0 = []
+        if arg:
+            condition_ = False
+            tmp_arg = arg.split()
+            for clss in  self.__classes:
+                if clss == tmp_arg[0]:
+                    for key, value in t_all.items():
+                        if value.__class__.__name__ == tmp_arg[0]:
+                            condition_ = True
+                            array_t_0.append(value.__str__())
+                            print(array_t_0)
+            if not condition_:
+                print ("** class doesn't exist **")
+        else:
+            for k, v in t_all.items():
+                array_t_0.append(v.__str__())
+            print(array_t_0)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
