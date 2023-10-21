@@ -4,6 +4,11 @@
 import cmd
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.review import Review
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
 from models import storage
 import re
 
@@ -25,6 +30,19 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """ Do nothing upon empty line and enter"""
         pass
+
+    def default(self, arg):
+        if '.' in arg and arg.strip()[-1] != '.':
+            if arg.split('.')[0] not in self.__classes:
+                print("*** Unknown syntax: {}".format(arg))
+            else:
+                args = arg.strip('.{}'.format(arg.split('.')[0]))
+                if args == "all()":
+                    self.do_all("{}".format(arg.split('.')[0]))
+                else:
+                    print("*** Unknown syntax: {}".format(arg))
+        else:
+            print("*** Unknown syntax: {}". format(arg))
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
