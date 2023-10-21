@@ -43,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
                 if clss == tmp_arg[0]:
                     new_class = eval('{}()'.format(tmp_arg[0]))
                     print(new_class.id)
-                    storage.save()
+                    new_class.save()
                     break;
             else:
                 print ("** class doesn't exist **")
