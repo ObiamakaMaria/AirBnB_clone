@@ -9,43 +9,58 @@ from models.user import User
 
 class FileStorage:
 
-    """The file storage class """
+    """
+    This class handles the serialization and deserialization of instances
+    
+    """
 
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """ It returns the dictionary __objects """
+        
+        """ 
+        It returns the dictionary __objects
+        
+        """
 
         return (self.__objects)
 
     def new(self, obj):
 
         """
-        sets in __objects the obj with key
-        <obj class name>.id
+        sets in __objects the obj with key.
+        
+        Args:
+            obj: The Object to be stored.
 
         """
-        key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__objects[key] = obj
+        
+        self.__objects["{}.{}".format(type(obj).__name__, obj.id)] = obj
 
     def save(self):
-        """ serializes __objects to the JSON file (path: __file_path) """
-        serialized_objects = {}
-        for key, value in self.__objects.items():
-            serialized_objects[key] = value.to_dict()
-        with open(self.__file_path, "w") as files:
-            json.dump(serialized_objects, files)
+        
+        """
+        serializes __objects to the JSON file (path: __file_path)
+        
+        """
+        
+        with open(self.__file_path, 'w') as json_file:
+            tmp_dict = {}
+            for key, value in self.__objects.items():
+                tmp_dict[key] = value.to_dict()
+            json.dump(tmp_dict, json_file)
 
     def reload(self):
-        """ deserializes the JSON file to __objects """
+        
+        """ 
+        deserializes the JSON file to __objects 
+        
+        """
+        
         try:
-            with open(self.__file_path, "r") as files:
-                data = json.load(files)
-                for key, value in data.items():
-                    class_name, obj_id = key.split(".")
-                    cls = eval(class_name)
-                    obj = cls(**value)
-                    self.__objects[key] = obj
+            with open(self.__file_path, 'r') as rt_json:
+                for obj in json.load(rt_json).values():
+                    self.new(eval(obj["__class__"])(**obj))
         except FileNotFoundError:
-            pass
+            return
