@@ -41,8 +41,6 @@ class HBNBCommand(cmd.Cmd):
                     self.do_all("{}".format(arg.split('.')[0]))
                 else:
                     print("*** Unknown syntax: {}".format(arg))
-        else:
-            print("*** Unknown syntax: {}". format(arg))
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
