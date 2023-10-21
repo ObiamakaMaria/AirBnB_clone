@@ -5,6 +5,7 @@ import cmd
 from models.base_model import BaseModel
 from models.user import User
 from models import storage
+import re
 
 
 class HBNBCommand(cmd.Cmd):
@@ -113,6 +114,57 @@ class HBNBCommand(cmd.Cmd):
             for k, v in t_all.items():
                 array_t_0.append(v.__str__())
             print(array_t_0)
+    def do_update(self, arg):
+
+        """
+        Update an instance based on the class name and id 
+
+        """
+        no_update = {
+                "id",
+                "created_at",
+                "updated_at"
+                }
+        args = [s.strip('\'"') for s in re.findall(r'\'[^\']*\'|"[^"]*"|\S+', arg)]
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+
+        class_name = args[0]
+        if class_name not in self.__classes:
+            print("** class doesn't exist **")
+            return
+
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+
+        obj_id = args[1]
+        key = "{}.{}".format(class_name, obj_id)
+        if key not in storage.all():
+            print("** no instance found **")
+            return
+
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return
+
+        attr_name = args[2]
+        if attr_name in no_update:
+            if len(args) > 3:
+                print("** attribute can't be updated **")
+                return
+        if len(args) < 4:
+            print("** value missing **")
+            return
+
+        attr_value = args[3].strip()
+        data = storage.all()
+        to_update = data['{}.{}'.format(args[0], args[1])]
+        setattr(to_update, attr_name, attr_value)
+        to_update.save()
+
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
