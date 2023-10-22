@@ -37,6 +37,8 @@ class HBNBCommand(cmd.Cmd):
             print("*** Unknown syntax: {}".format(arg))
             return
         else:
+            mtd_name = re.match(r'^\w+', tmp[1]).group()
+            cnt = re.findall(r'\((.*?)\)', tmp[1])
             if len(tmp) == 2:
                 if tmp[1] == "all()":
                     self.do_all(tmp[0])
@@ -46,11 +48,12 @@ class HBNBCommand(cmd.Cmd):
                         if v.__class__.__name__ == tmp[0]:
                             i += 1
                     print(i)
-
-                else:
-                    print("*** Unknown syntax: {}".format(arg))
+                elif mtd_name == "show":
+                    if len(cnt) > 0:
+                        arg_ = "{} {}".format(tmp[0], cnt[0].strip("'\""))
+                        self.do_show(arg_)
             else:
-                print("*** Unknown syntax: {}". format(arg))
+                 print("*** Unknown syntax: {}".format(arg))
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
