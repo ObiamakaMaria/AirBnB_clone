@@ -40,6 +40,13 @@ class HBNBCommand(cmd.Cmd):
             if len(tmp) == 2:
                 if tmp[1] == "all()":
                     self.do_all(tmp[0])
+                elif tmp[1] == "count()":
+                    i = 0
+                    for k, v in storage.all().items():
+                        if v.__class__.__name__ == tmp[0]:
+                            i += 1
+                    print(i)
+
                 else:
                     print("*** Unknown syntax: {}".format(arg))
             else:
