@@ -22,9 +22,9 @@ class HBNBCommand(cmd.Cmd):
             "User",
             "State",
             "City",
-            "Place",
+            "Review",
             "Amenity",
-            "Review"
+            "Place"
             }
 
     def emptyline(self):
@@ -32,15 +32,18 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def default(self, arg):
-        if '.' in arg and arg.strip()[-1] != '.':
-            if arg.split('.')[0] not in self.__classes:
-                print("*** Unknown syntax: {}".format(arg))
-            else:
-                args = arg.strip('.{}'.format(arg.split('.')[0]))
-                if args == "all()":
-                    self.do_all("{}".format(arg.split('.')[0]))
+        tmp = arg.split('.')
+        if len(tmp) == 1 or tmp[1] == '' or tmp[0] not in self.__classes:
+            print("*** Unknown syntax: {}".format(arg))
+            return
+        else:
+            if len(tmp) == 2:
+                if tmp[1] == "all()":
+                    self.do_all(tmp[0])
                 else:
                     print("*** Unknown syntax: {}".format(arg))
+            else:
+                print("*** Unknown syntax: {}". format(arg))
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
