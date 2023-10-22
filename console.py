@@ -52,6 +52,11 @@ class HBNBCommand(cmd.Cmd):
                     if len(cnt) > 0:
                         arg_ = "{} {}".format(tmp[0], cnt[0].strip("'\""))
                         self.do_show(arg_)
+                elif mtd_name == "destroy":
+                    if len(cnt) > 0:
+                        arg_ = "{} {}".format(tmp[0], cnt[0].strip("'\""))
+                        self.do_destroy(arg_)
+
             else:
                  print("*** Unknown syntax: {}".format(arg))
 
