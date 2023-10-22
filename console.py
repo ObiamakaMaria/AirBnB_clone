@@ -56,6 +56,12 @@ class HBNBCommand(cmd.Cmd):
                     if len(cnt) > 0:
                         arg_ = "{} {}".format(tmp[0], cnt[0].strip("'\""))
                         self.do_destroy(arg_)
+                elif mtd_name == "update":
+                    if len(cnt) > 0:
+                        t = cnt[0].split(",")
+                        a, b = [t[0].strip("'\""), t[1].strip("'\"")]
+                        arg_ = "{} {} {} {}".format(tmp[0], a, b, t[2].strip("'\""))
+                        self.do_update(arg_)
 
             else:
                  print("*** Unknown syntax: {}".format(arg))
