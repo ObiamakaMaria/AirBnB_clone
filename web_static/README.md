@@ -1,1 +1,3 @@
-the web static for the AirBnB_clone project
+###
+
+This is my web_static Project.
